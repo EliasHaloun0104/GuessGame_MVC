@@ -38,6 +38,26 @@ namespace GuessGame.Controllers
             return View();
         }
         
+        public IActionResult TheGame()
+        {
+            return View();
+        }
+        
+        public IActionResult ActiveGame()
+        {
+            return View();
+        }
+        
+        public IActionResult MyPage()
+        {
+            return View();
+        }
+        public IActionResult PreviousGame()
+        {
+            return View();
+        }
+        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "TheGame";
+}
+
+@Html.Raw(PrintModel.Title("The Game", 1))
+<div class="container w-50 p-3 text-center">
+    <form>
+        @Html.Raw(PrintModel.Title("What are you going to draw?",3))        
+    <input type="text">
+    <input type="submit" value="Start">
+    </form>
+</div>
+
+<canvas class='drawingCanvas' width="400" height="400" id="can"></canvas>
+<canvas class='drawingCanvas' width="400" height="400" id="can2"></canvas>
+<div style="display: inline">
+    <h1>Choose Color</h1>
+    <div class='divColor' style="background:green;" id="green" onclick="color(this)"></div>
+    <div class='divColor' style="background:blue;" id="blue" onclick="color(this)"></div>
+    <div class='divColor' style="background:red;" id="red" onclick="color(this)"></div>
+    <div class='divColor' style="background:violet;"></div>
+
+    <img id="canvasimg" alt="hiddenImg" style="display: none;">
+    <input type="button" value="Finish" id="clr" size="23" onclick="erase()">
+</div>
+
