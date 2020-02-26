@@ -1,7 +1,69 @@
 ﻿@{
 	ViewData["Title"] = "Home";
-
 }
 
 @Html.Raw(PrintModel.Title("Guess Game", 1))
+@{
+	var emailHead = RandomString() + "@" + RandomString() + "." + RandomString();
+	var nickHead = RandomString();
+	var pass = RandomString();
+
+	string RandomString()
+	{
+		var rand = new Random();
+		const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+		return new string(Enumerable.Repeat(chars, 4)
+		  .Select(s => s[rand.Next(s.Length)]).ToArray());
+	}
+}
+
+
+
+
+	<div class="container w-50 p-3 text-center">
+		@Html.Raw(PrintModel.SubTitle("Sign In",3))
+		<form id="signIn" method="post" class="border border-light p-5"
+			  style="background-image: url(img/drawing.gif); background-size:100% 100%;">
+			<input type="email" id="signInEmail" name="email"  placeholder="Enter you email address" class="form-control mb-4">			
+			<input type="password" id="signInPassword" name="password" placeholder="Enter you password" class="form-control mb-4">	
+			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" asp-area="" asp-controller="Home" asp-action="MyPage()">
+		</form>		
+	</div>
+
+	<div class="container w-50 p-3 text-center">
+		@Html.Raw(PrintModel.SubTitle("Forget Your Password",3))
+		<p>Not Implemented</p>
+		<form id="signIn" method="post" class="border border-light p-5"
+			  style="background-image: url(img/drawing.gif); background-size:100% 100%;">
+			<input type="email" id="signInemail" name="email"  placeholder="Enter you email address" class="form-control mb-4">			
+			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" onclick="singIn()">
+		</form>		
+	</div>
+
+
+	<div class="container w-50 p-3 text-center">
+		@Html.Raw(PrintModel.SubTitle("Sign Up",3))
+		<form id="signUp" method="post" class="border border-light p-5"
+			  style="background-image: url(img/drawing.gif); background-size:100% 100%;">
+			<input type="email" id="email" name="email" value="@emailHead" placeholder="Enter you email address" class="form-control mb-4">
+			<input type="text" id="nickName" name="nickName" value="@nickHead" placeholder="Enter you nick name" class="form-control mb-4">
+			<input type="password" id="password" name="password" value="@pass" placeholder="Enter you password" class="form-control mb-4">
+			<input type="text" id="avatar" name="avatar" value="img/avatar/001-man-13.png" class="form-control mb-4">
+			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" onclick="signUp()">
+			<img id="avatarImg" src="~/img/avatar/001-man-13.png" width="128" height="128" />
+		</form>
+		@{
+			var avatarArray = PrintModel.GetAvatars();
+			<div class="container">
+				<div class="row">
+					@foreach (var item in avatarArray)
+					{
+						<img id="@item" src="@item" width="64" height="64" onclick="choosenAvatar(this.id);" />
+					}
+				</div>
+			</div>
+		}
+	</div>
+
+
 

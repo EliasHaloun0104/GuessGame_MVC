@@ -1,20 +1,24 @@
-let canvas, ctx, flag = false,
+var canvas, ctx, flag = false,
     prevX = 0,
     currX = 0,
     prevY = 0,
     currY = 0,
     dot_flag = false;
 
-let x = "black",
+var x = "black",
     y = 2;
-let canvas2 = document.getElementById("can2");
-let ctx2 = canvas2.getContext("2d");
+
+
+function data() {
+    return canvas.toDataURL();
+}
+
 
 function init() {
     canvas = document.getElementById('can');
     ctx = canvas.getContext("2d");
-    let w = canvas.width;
-    let h = canvas.height;
+    w = canvas.width;
+    h = canvas.height;
 
     canvas.addEventListener("mousemove", function (e) {
         findxy('move', e)
@@ -41,9 +45,22 @@ function color(obj) {
         case "red":
             x = "red";
             break;
+        case "yellow":
+            x = "yellow";
+            break;
+        case "orange":
+            x = "orange";
+            break;
+        case "black":
+            x = "black";
+            break;
+        case "white":
+            x = "white";
+            break;
     }
-    if (x === "white") y = 14;
+    if (x == "white") y = 14;
     else y = 2;
+
 }
 
 function draw() {
@@ -54,11 +71,11 @@ function draw() {
     ctx.lineWidth = y;
     ctx.stroke();
     ctx.closePath();
-    ctx2.drawImage(canvas,0,0);
+
 }
 
 function erase() {
-    const m = confirm("Want to clear");
+    var m = confirm("Want to clear");
     if (m) {
         ctx.clearRect(0, 0, w, h);
         document.getElementById("canvasimg").style.display = "none";
@@ -67,13 +84,14 @@ function erase() {
 
 function save() {
     document.getElementById("canvasimg").style.border = "2px solid";
-    const dataURL = canvas.toDataURL();
+    var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "inline";
 }
 
+
 function findxy(res, e) {
-    if (res === 'down') {
+    if (res == 'down') {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
@@ -89,10 +107,10 @@ function findxy(res, e) {
             dot_flag = false;
         }
     }
-    if (res === 'up' || res === "out") {
+    if (res == 'up' || res == "out") {
         flag = false;
     }
-    if (res === 'move') {
+    if (res == 'move') {
         if (flag) {
             prevX = currX;
             prevY = currY;

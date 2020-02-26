@@ -59,5 +59,16 @@ namespace GuessGame.Models
             }
             return stringWriter.ToString();
         }
+
+        public static string[] GetAvatars()
+        {
+            var avatar = Directory.GetFiles("wwwroot/img/avatar");
+            for (int i = 0; i < avatar.Length; i++)
+            {
+                avatar[i] = "img/avatar/"+avatar[i].Substring(avatar[i].LastIndexOf("\\")+1);
+            }
+
+            return avatar;
+        }
     }
 }

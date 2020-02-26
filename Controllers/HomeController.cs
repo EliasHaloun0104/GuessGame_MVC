@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using GuessGame.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace GuessGame.Controllers
 {
@@ -48,8 +49,9 @@ namespace GuessGame.Controllers
             return View();
         }
         
-        public IActionResult MyPage()
+        public IActionResult MyPage(IFormCollection value)
         {
+
             return View();
         }
         public IActionResult PreviousGame()
