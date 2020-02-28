@@ -84,7 +84,37 @@ namespace GuessGame.Middleware
                 //close connection
                 db.CloseConnection();
             }
+        }
 
+
+        public static string AuthUser(string email, string password)
+        {
+            var db = new DB_Connection();
+            if (db.OpenConnection())
+            {
+
+                string query = $"SELECT * FROM users WHERE email = '{email}' AND password = '{password}'";
+                MySqlCommand cmd = new MySqlCommand(query, db.Connection);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                //Read the data and store them in the list
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        var user = new UserModel(dataReader);
+                        dataReader.Close();
+                        db.CloseConnection();
+                        return user.ToString();
+                    }
+                    
+                }
+
+                //close Data Reader
+                dataReader.Close();
+                db.CloseConnection();
+
+            }            
+            return "The User email or pass not exist or doesn't match";
         }
     }
 }

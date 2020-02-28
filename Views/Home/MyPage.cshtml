@@ -4,27 +4,52 @@
 }
 
 @Html.Raw(PrintModel.Title("MyPage", 1))
-@Html.Raw(PrintModel.SubTitle("Welcome NickName!", 1))
+@Html.Raw(PrintModel.SubTitle("Welcome!", 1))
 @Html.Raw(PrintModel.SubTitle("What to do?", 3))
 
-
 <div class="w-50 p-3 text-center">
-    <a href="ActiveGames.php"><button class="btn btn-info my-4">Join Game</button></a>
-    <a href="NewGame.php"><button class="btn btn-info my-4">Create new Game</button></a>
-    <a href="PreviousGame.php"><button class="btn btn-info my-4">My previous Game </button></a>
+    <button class="btn btn-info my-4">Join Game</button>
+    <button class="btn btn-info my-4">Create new Game</button>
+    <button class="btn btn-info my-4">My previous Game </button>
 </div>
-
+<p>@Model[0]</p>
 @Html.Raw(PrintModel.SubTitle("Some Statistic", 3))
 @Html.Raw(PrintModel.SubTitle("Your rating is 4.5/5.0", 3))
 @Html.Raw(PrintModel.SubTitle("Your Info", 3))
 
 <div class="container w-50 p-3 text-center">
-    <form class="border border-light p-5" action="MyPage.php">
-        <input type="email" placeholder="Enter you email address" class="form-control mb-4">
-        <input type="email" placeholder="Enter you nick name" class="form-control mb-4">
-        <img src="img/avatar/001-man-13.png" alt="Avatar Image" width:="128px" height="128px">
-        <input type="password" placeholder="Enter you password" class="form-control mb-4">
-        <input type="password" placeholder="retype you password" class="form-control mb-4">
-        <input type="submit" value="Edit!" class="btn btn-info btn-block my-4">
+    <form id="signUp" method="post" class="border border-light p-5">
+        <input type="text" id="userid" name="email" placeholder="Enter you email address" class="form-control mb-4" readonly>
+        <input type="email" id="email" name="email" placeholder="Enter you email address" class="form-control mb-4">
+        <input type="text" id="nickName" name="nickName" placeholder="Enter you nick name" class="form-control mb-4">
+        <input type="password" id="password" name="password" placeholder="Enter you password" class="form-control mb-4">
+        <input type="text" id="avatar" name="avatar" class="form-control mb-4">
+        <input type="submit" value="Update!" class="btn btn-info btn-block my-4" onclick="UpdateUser()">
+        <img id="avatarImg" width="128" height="128" />
     </form>
 </div>
+
+@{
+    var avatarArray = PrintModel.GetAvatars();
+    <div class="container">
+        <div class="row">
+            @foreach (var item in avatarArray)
+            {
+                <img id="@item" src="@item" width="64" height="64" onclick="choosenAvatar(this.id);" />
+            }
+        </div>
+    </div>
+}
+
+<script>
+    var read = localStorage.getItem("user");
+    var user = JSON.parse(read);
+    document.getElementById("userid").value = user.UserId;
+    document.getElementById("email").value = user.Email;
+    document.getElementById("nickName").value = user.Username;
+    document.getElementById("password").value = user.Password;
+    document.getElementById("avatarImg").src = "/" + user.Avatar;
+    document.getElementById("avatar").value = user.Avatar;
+
+
+</script>

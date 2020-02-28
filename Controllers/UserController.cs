@@ -46,24 +46,22 @@ namespace GuessGame.Controllers
         [HttpPost]
         public string AddUser(IFormCollection value)
         {
-            Debug.WriteLine("My debug string here");
             var email = value["email"];
-            Debug.WriteLine(email);
             var nickName = value["nickName"];
-            Debug.WriteLine(nickName);
             var password = value["password"];
-            Debug.WriteLine(password);
             var avatar = value["avatar"];
-            Debug.WriteLine(avatar);
-            Debug.WriteLine("My debug string here");
             UserMiddleware.AddNewUser(email, nickName, password, avatar);
-            return email +", "+ nickName + ", " + password + ", " + avatar;
+            return "New Users Added succesffully";
         }
 
         // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public string AuthUser(IFormCollection value)
         {
+            var email = value["signInEmail"];
+            var password = value["signInPassword"];
+            return UserMiddleware.AuthUser(email, password).ToString();
+
         }
 
         // DELETE: api/ApiWithActions/5

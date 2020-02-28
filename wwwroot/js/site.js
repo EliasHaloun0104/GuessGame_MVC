@@ -1,4 +1,5 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿
+// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
@@ -40,16 +41,18 @@ function signIn() {
 	var email = document.getElementById("signInEmail").value;
 	var password = document.getElementById("signInPassword").value;
 
-	formData.append("email", email);
-	formData.append("password", password);
+	formData.append("signInEmail", email);
+	formData.append("signInPassword", password);
 
 	fetch(`${url}`, {
-		method: 'POST',
+		method: 'PUT',
 		body: formData
 	})
 		.then(response => response.text())
 		.then(data => {
-			alert(data);
+			localStorage.setItem("user", data);
+			window.location.href = "/Home/MyPage";
+
 		})
 		.catch(error => console.error('Unable to get Account.', error));
 

@@ -19,24 +19,23 @@
 
 
 
-
 	<div class="container w-50 p-3 text-center">
 		@Html.Raw(PrintModel.SubTitle("Sign In",3))
-		<form id="signIn" method="post" class="border border-light p-5"
+		<form id="signIn" method="post"  class="border border-light p-5"
 			  style="background-image: url(img/drawing.gif); background-size:100% 100%;">
-			<input type="email" id="signInEmail" name="email"  placeholder="Enter you email address" class="form-control mb-4">			
-			<input type="password" id="signInPassword" name="password" placeholder="Enter you password" class="form-control mb-4">	
-			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" asp-area="" asp-controller="Home" asp-action="MyPage()">
+			<input type="email" id="signInEmail" name="email"  placeholder="Enter you email address" class="form-control mb-4" value="hkcx@dr92.zjbg">			
+			<input type="password" id="signInPassword" name="password" placeholder="Enter you password" class="form-control mb-4" value="4d8b">	
+			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" onclick="signIn()">
 		</form>		
 	</div>
 
 	<div class="container w-50 p-3 text-center">
 		@Html.Raw(PrintModel.SubTitle("Forget Your Password",3))
 		<p>Not Implemented</p>
-		<form id="signIn" method="post" class="border border-light p-5"
+		<form id="forgetPass" method="post" class="border border-light p-5"
 			  style="background-image: url(img/drawing.gif); background-size:100% 100%;">
 			<input type="email" id="signInemail" name="email"  placeholder="Enter you email address" class="form-control mb-4">			
-			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" onclick="singIn()">
+			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4">
 		</form>		
 	</div>
 
@@ -48,7 +47,7 @@
 			<input type="email" id="email" name="email" value="@emailHead" placeholder="Enter you email address" class="form-control mb-4">
 			<input type="text" id="nickName" name="nickName" value="@nickHead" placeholder="Enter you nick name" class="form-control mb-4">
 			<input type="password" id="password" name="password" value="@pass" placeholder="Enter you password" class="form-control mb-4">
-			<input type="text" id="avatar" name="avatar" value="img/avatar/001-man-13.png" class="form-control mb-4">
+			<input type="text" id="avatar" name="avatar" value="/img/avatar/001-man-13.png" class="form-control mb-4">
 			<input type="submit" value="Proceed!" class="btn btn-info btn-block my-4" onclick="signUp()">
 			<img id="avatarImg" src="~/img/avatar/001-man-13.png" width="128" height="128" />
 		</form>

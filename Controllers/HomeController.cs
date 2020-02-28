@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using GuessGame.Models;
 using Microsoft.AspNetCore.Http;
+using GuessGame.Database;
 
 namespace GuessGame.Controllers
 {
@@ -23,6 +24,10 @@ namespace GuessGame.Controllers
         {
             return View();
         }
+
+        
+
+
 
         public IActionResult Privacy()
         {
@@ -49,9 +54,8 @@ namespace GuessGame.Controllers
             return View();
         }
         
-        public IActionResult MyPage(IFormCollection value)
+        public IActionResult MyPage()
         {
-
             return View();
         }
         public IActionResult PreviousGame()
