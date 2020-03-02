@@ -30,6 +30,7 @@ function signUp() {
 	})
 		.then(response => response.text())			
 		.then(data => {
+			document.getElementById("response").innerText = data;
 			alert(data);
 		})
 		.catch(error => console.error('Unable to get Account.', error));

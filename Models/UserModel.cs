@@ -15,7 +15,6 @@ namespace GuessGame.Models
         private string email;
         private string password;
         private string avatar;
-        private DateTime lastAccess;
 
         public UserModel(MySqlDataReader record)
         {
@@ -24,7 +23,6 @@ namespace GuessGame.Models
             this.email = (string)record["email"]; ;
             this.password = (string)record["password"]; ;
             this.avatar = (string)record["avatar"]; ;
-            this.lastAccess = (DateTime)record["lastaccess"]; ;
         }
 
         public override string ToString()
@@ -39,6 +37,5 @@ namespace GuessGame.Models
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
         public string Avatar { get => avatar; set => avatar = value; }
-        public DateTime LastAccess { get => lastAccess; set => lastAccess = value; }
     }
 }
