@@ -4,36 +4,27 @@
 }
 
 @Html.Raw(PrintModel.Title("The Game", 3))
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        <script src="~/js/draw.js"></script>
-        <div class="container">
-            <div class="row">
-                <canvas id="myCanvas" width="600" height="400" style="border:1px solid black"></canvas>
-                <br />
-            </div>
-            <div class="row">
-                <a href="#" id="btnD">Clear Area</a>
-                Line width :
-                <select id="selWidth">
-                    <option value="1">1</option>
-                    <option value="3" selected="selected">3</option>
-                    <option value="5">5</option>
-                    <option value="7">7</option>
-                </select>
-                Color : <select id="selColor">
-                    <option value="black">black</option>
-                    <option value="blue" selected="selected">blue</option>
-                    <option value="red">red</option>
-                    <option value="green">green</option>
-                    <option value="yellow">yellow</option>
-                    <option value="gray">gray</option>
-                </select>
-            </div>
-        </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 
+<style>
+    #draw-canvas {
+        background-color: #ddd;
+    }
+</style>
 
-<script>init();</script>
+<div>
+    <input type="color" id="color" value="#000000" />
+    <input type="button" id="clear" value="Clear" />
+</div>
+<div>
+    <canvas id="draw-canvas" height="500" width="800"></canvas>
+</div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/draw.js"></script>
+
+
 
 <div class="container w-50 p-3 text-center">
     <form>
@@ -42,4 +33,6 @@
         <input type="submit" value="Start">
     </form>
 </div>
+
+
 

@@ -1,57 +1,93 @@
-var mousePressed = false;
-var lastX, lastY;
-var ctx;
 
-function init() {
-    ctx = document.getElementById('myCanvas').getContext("2d");
+var unsentStrokes = [];
 
-    $('#myCanvas').mousedown(function (e) {
-        mousePressed = true;
-        Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, false);
-    });
+var connection = new signalR.HubConnectionBuilder()
+    .withUrl('/TheGame')
+    .build();
+connection.on('newStroke', drawStroke)
+connection.on('clearCanvas', clearCanvas)
+connection.start()
+    .then(() => console.log('connected!'))
+    .catch(err => console.error)
 
-    $('#myCanvas').mousemove(function (e) {
-        if (mousePressed) {
-            Draw(e.pageX - $(this).offset().left, e.pageY - $(this).offset().top, true);
-        }
-    });
+var canvas = document.getElementById('draw-canvas')
+var ctx = canvas.getContext('2d')
+ctx.lineWidth = 4
 
-    $('#myCanvas').mouseup(function (e) {
-        mousePressed = false;
-    });
-    $('#myCanvas').mouseleave(function (e) {
-        mousePressed = false;
-    });
-}
-
-function Draw(x, y, isDown) {
-    if (isDown) {
-        ctx.beginPath();
-        ctx.strokeStyle = $('#selColor').val();
-        ctx.lineWidth = $('#selWidth').val();
-        ctx.lineJoin = "round";
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.closePath();
-        ctx.stroke();
+var clearButton = document.getElementById('clear')
+clearButton.addEventListener('click', ev => {
+    ev.preventDefault()
+    if (confirm("Are you sure you want to clear everyone's canvases???")) {
+        clearCanvas()
+        connection.send('ClearCanvas')
     }
-    lastX = x; lastY = y;
+})
+
+var colorButton = document.getElementById('color')
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-var button = document.getElementById('btnD');
-button.addEventListener('click', function (e) {
-    var dataURL = document.getElementById('myCanvas').toDataURL('image/png');
-    var btn = Ddocument.getElementById("btnD");
-    btn.href = dataURL;
-});
+var penDown = false
+var previous = { x: 0, y: 0, ts: 0 }
 
-function clearArea() {
-   
+canvas.addEventListener('mousedown', mouseDown)
+canvas.addEventListener('touchstart', mouseDown)
 
+canvas.addEventListener('mouseup', mouseUp)
+canvas.addEventListener('touchend', mouseUp)
+canvas.addEventListener('touchcancel', mouseUp)
 
+canvas.addEventListener('mousemove', mouseMove)
+canvas.addEventListener('touchmove', mouseMove)
 
-    //button.href = dataURL;
-    // Use the identity matrix while clearing the canvas
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+function mouseDown() {
+    penDown = true
 }
+
+function mouseUp() {
+    penDown = false
+}
+
+function mouseMove(ev) {
+    ev.preventDefault();
+    const millisecondsSinceLastStroke = (new Date()).getTime() - previous.ts
+    if (penDown && millisecondsSinceLastStroke < 100) {
+        var start = {
+            x: previous.x - canvas.offsetLeft,
+            y: previous.y - canvas.offsetTop
+        }
+        var end = {
+            x: ev.pageX - canvas.offsetLeft,
+            y: ev.pageY - canvas.offsetTop
+        }
+        drawStroke(start, end, colorButton.value)
+        unsentStrokes.push({
+            start: start,
+            end: end,
+            color: colorButton.value
+        })
+    }
+    previous = {
+        x: ev.pageX,
+        y: ev.pageY,
+        ts: (new Date()).getTime()
+    }
+}
+
+function drawStroke(start, end, color) {
+    color = color || "#000"
+    ctx.strokeStyle = color
+    ctx.beginPath()
+    ctx.moveTo(start.x, start.y)
+    ctx.lineTo(end.x, end.y)
+    ctx.stroke()
+}
+
+setInterval(function () {
+    if (unsentStrokes.length) {
+        connection.send('NewStrokes', unsentStrokes);
+        unsentStrokes = [];
+    }
+}, 250);
