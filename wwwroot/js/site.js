@@ -105,3 +105,18 @@ function signIn() {
 		.catch(error => console.error('Unable to get Account.', error));
 
 }
+function CreateGame() {
+	
+	
+	var paintName = prompt("What are you going to draw?");
+
+	if (paintName == null || paintName == "") {
+
+		window.alert("Please Enter A Paint Name!");
+
+
+	} else {
+		window.location.href = "/Home/TheGame";
+
+	}
+}

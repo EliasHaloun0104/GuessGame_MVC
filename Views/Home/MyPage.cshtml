@@ -12,9 +12,10 @@
 @{
 	string isEnabled = Model.Elem1 == 1 ? "disabled" : "";
 
-<button class="btn btn-info my-2" @isEnabled>Create new Game</button>
+<button class="btn btn-info my-2" onclick="CreateGame()" @isEnabled>Create new Game</button>
 
-	}
+
+}
 
 @Html.Raw(PrintModel.SubTitle("Active Game", 3))
 
