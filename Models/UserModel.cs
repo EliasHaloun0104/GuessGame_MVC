@@ -24,6 +24,15 @@ namespace GuessGame.Models
             this.password = (string)record["password"]; ;
             this.avatar = (string)record["avatar"]; ;
         }
+        
+        public UserModel(int userId, string username, string email, string password, string avatar)
+        {
+            this.userId = userId;
+            this.username = username;
+            this.email = email;
+            this.password = password;
+            this.avatar = avatar;
+        }
 
         public override string ToString()
         {
