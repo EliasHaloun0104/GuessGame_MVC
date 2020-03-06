@@ -15,14 +15,16 @@ namespace GuessGame.Models
         private string email;
         private string password;
         private string avatar;
+        private bool role;
 
         public UserModel(MySqlDataReader record)
         {
             this.userId = (int) record["userId"];
-            this.username = (string) record["username"]; ;
-            this.email = (string)record["email"]; ;
-            this.password = (string)record["password"]; ;
-            this.avatar = (string)record["avatar"]; ;
+            this.username = (string) record["username"];
+            this.email = (string)record["email"];
+            this.password = (string)record["password"];
+            this.avatar = (string)record["avatar"];
+            role = (bool)record["role"];
         }
         
         public UserModel(int userId, string username, string email, string password, string avatar)
@@ -32,6 +34,7 @@ namespace GuessGame.Models
             this.email = email;
             this.password = password;
             this.avatar = avatar;
+            
         }
 
         public override string ToString()
@@ -46,5 +49,6 @@ namespace GuessGame.Models
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
         public string Avatar { get => avatar; set => avatar = value; }
+        public bool Role { get => role; set => role = value; }
     }
 }

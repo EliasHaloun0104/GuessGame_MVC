@@ -7,16 +7,17 @@ namespace GuessGame.Models
 {
     public class Data
     {
-        int users;
-        int games;
+        int elem1;
+        int elem2;
+        
 
         public Data(int users, int games)
         {
-            this.Users = users;
-            this.Games = games;
+            this.Elem1 = users;
+            this.Elem2 = games;
         }
 
-        public int Users { get => users; set => users = value; }
-        public int Games { get => games; set => games = value; }
+        public int Elem1 { get => elem1; set => elem1 = value; }
+        public int Elem2 { get => elem2; set => elem2 = value; }
     }
 }

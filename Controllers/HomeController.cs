@@ -28,6 +28,11 @@ namespace GuessGame.Controllers
         }
 
 
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
         
         
 
@@ -57,7 +62,8 @@ namespace GuessGame.Controllers
         
         public IActionResult MyPage()
         {
-            return View();
+            var db = new GameDB();
+            return View(db.indexInfo());
         }
 
 

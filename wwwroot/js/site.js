@@ -91,7 +91,15 @@ function signIn() {
 		.then(response => response.text())
 		.then(data => {
 			localStorage.setItem("user", data);
-			window.location.href = "/Home/MyPage";
+			var user = JSON.parse(data);
+			var role = user.Role;
+		
+			if (!role) {
+				window.location.href = "/Home/MyPage";
+			} else {
+				window.location.href = "/Home/Admin";
+
+			}
 
 		})
 		.catch(error => console.error('Unable to get Account.', error));

@@ -88,5 +88,31 @@ namespace GuessGame.Database
             return null;
         }
 
+
+        public Data indexInfo()
+        {
+
+            int activeGames = 0;
+            var db = new DB_Connection();
+            try
+            {
+                db.OpenConnection();
+                string query = "SELECT COUNT(*) AS count FROM games WHERE active = 1";
+                MySqlCommand cmd = new MySqlCommand(query, db.Connection);
+                activeGames = int.Parse(cmd.ExecuteScalar().ToString());
+
+                
+
+                //close Data Reader
+                db.CloseConnection();
+                return new Data(activeGames, 0);
+
+            }
+            catch (MySqlException)
+            {
+                return new Data(0,0);
+            }
+        }
+
     }
 }
