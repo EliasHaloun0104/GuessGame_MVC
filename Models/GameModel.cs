@@ -40,5 +40,13 @@ namespace GuessGame.Models
             //return DrawText;
         }
 
+        public static List<GameModel> getGame()
+        {
+            var games = new Database.GameDB();
+            var result = games.GetAll();
+            
+            return result;
+        }
+
     }
 }

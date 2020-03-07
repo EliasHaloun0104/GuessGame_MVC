@@ -1,6 +1,6 @@
 ﻿
 @{
-	ViewData["Title"] = "MyPage";
+    ViewData["Title"] = "MyPage";
 }
 
 @Html.Raw(PrintModel.Title("MyPage", 1))
@@ -10,16 +10,63 @@
 @model Data
 
 @{
-	string isEnabled = Model.Elem1 == 1 ? "disabled" : "";
+    string isEnabled = Model.Elem1 == 1 ? "disabled" : "";
 
-<button class="btn btn-info my-2" onclick="CreateGame()" @isEnabled>Create new Game</button>
+    <button class="btn btn-info my-2" onclick="CreateGame()" @isEnabled>Create new Game</button>
 
 
 }
 
 @Html.Raw(PrintModel.SubTitle("Active Game", 3))
+@{
 
+
+        var games = GameModel.getGame();
+        <table>
+
+            <div class="container">
+                <div class="row">
+                    @foreach (var item in games)
+                    {
+
+                        <tr>
+
+                            @if (@item.Active)
+                            {
+                                <td width="60"><button class="btn btn-info my-2" onclick="ActiveGame()">@item.DrawText</button></td>
+
+                            }
+
+                        </tr>
+                    }
+                </div>
+            </div>
+        </table>
+    
+}
 @Html.Raw(PrintModel.SubTitle("Previous Game", 3))
+@{
+    <table>
+
+        <div class="container">
+            <div class="row">
+                @foreach (var item in games)
+                {
+
+                    <tr>
+
+                        @if (@item.Active == false)
+                        {
+  
+                            <td width="60"><button class="btn btn-info my-2" onclick=" ">@item.DrawText</button></td>
+
+                        }
+                    </tr>
+                }
+            </div>
+        </div>
+    </table>
+}
 
 @Html.Raw(PrintModel.SubTitle("Some Statistic", 3))
 

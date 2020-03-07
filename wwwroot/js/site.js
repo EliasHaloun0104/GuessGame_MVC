@@ -120,3 +120,9 @@ function CreateGame() {
 
 	}
 }
+
+function ActiveGame() {
+	
+	window.location.href = "/Home/TheGame";
+
+}
