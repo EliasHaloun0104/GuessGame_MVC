@@ -17,22 +17,13 @@
 <div>
     <input type="color" id="color" value="#000000" />
     <input type="button" id="clear" value="Clear" />
+    <input type="button" id="save" value="Save" />
 </div>
 <div>
     <canvas id="draw-canvas" height="500" width="800"></canvas>
 </div>
 <script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/draw.js"></script>
-
-
-
-<div class="container w-50 p-3 text-center">
-    <form>
-        @Html.Raw(PrintModel.SubTitle("What are you going to draw?", 5))
-        <input type="text">
-        <input type="submit" value="Start">
-    </form>
-</div>
 
 
 

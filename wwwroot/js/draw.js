@@ -1,5 +1,6 @@
 
 var unsentStrokes = [];
+var uri;
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl('/TheGame')
@@ -22,6 +23,16 @@ clearButton.addEventListener('click', ev => {
         connection.send('ClearCanvas')
     }
 })
+
+var saveButton = document.getElementById('save')
+saveButton.addEventListener('click', ev => {
+    dataURI = canvas.toDataURL()
+    console.log(dataURI)
+    clearCanvas()
+    connection.send('ClearCanvas')
+
+})
+
 
 var colorButton = document.getElementById('color')
 
