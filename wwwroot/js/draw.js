@@ -24,6 +24,7 @@ clearButton.addEventListener('click', ev => {
     }
 })
 
+
 var saveButton = document.getElementById('save')
 saveButton.addEventListener('click', ev => {
     dataURI = canvas.toDataURL()
@@ -102,3 +103,18 @@ setInterval(function () {
         unsentStrokes = [];
     }
 }, 250);
+
+
+var sendButton = document.getElementById('sendvalue')
+sendButton.addEventListener('click', ev => {
+    var clientGuess = document.getElementById('clientGuess')
+    if (clientGuess.value == null || clientGuess.value == "")
+        alert("You cannot submit an empty guess value")
+    else {
+        console.log(clientGuess.value);
+        clientGuess.disabled = true;
+        sendButton.disabled = true;
+    }
+
+
+})

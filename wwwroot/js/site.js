@@ -92,8 +92,7 @@ function signIn() {
 		.then(data => {
 			localStorage.setItem("user", data);
 			var user = JSON.parse(data);
-			var role = user.Role;
-		
+			var role = user.Role;			
 			if (!role) {
 				window.location.href = "/Home/MyPage";
 			} else {
@@ -105,18 +104,18 @@ function signIn() {
 		.catch(error => console.error('Unable to get Account.', error));
 
 }
-function CreateGame() {
-	
-	
+function CreateGame() {		
 	var paintName = prompt("What are you going to draw?");
 
 	if (paintName == null || paintName == "") {
 
 		window.alert("Please Enter A Paint Name!");
-
-
+		
 	} else {
 		window.location.href = "/Home/TheGame";
+		var user = JSON.parse(localStorage.getItem('user'));
+		alert(user.UserId, paintName);
+		localStorage.setItem("createGame")
 
 	}
 }
