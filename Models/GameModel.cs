@@ -13,8 +13,8 @@ namespace GuessGame.Models
         int userid;
         string drawText;
         bool active;
-        int winnerId;
-        byte[] blob;
+        string img;
+        int correctGuess;
 
 
         public GameModel(MySqlDataReader record)
@@ -23,16 +23,18 @@ namespace GuessGame.Models
             this.Userid = (int)record["userid"];
             this.DrawText = (string)record["drawText"];
             this.Active = (bool)record["active"];
-            this.WinnerId = Convert.IsDBNull(record["winnerId"]) ? -1: (int)record["winnerId"];
-            this.Blob = Convert.IsDBNull(record["img"]) ? null : (byte[])record["img"];
+            this.img = Convert.IsDBNull(record["img"]) ? " " : (string)record["img"];
+            this.correctGuess = (int)record["correctGuess"];
+
+
         }
 
         public int Gameid { get => gameid; set => gameid = value; }
         public int Userid { get => userid; set => userid = value; }
         public string DrawText { get => drawText; set => drawText = value; }
         public bool Active { get => active; set => active = value; }
-        public int WinnerId { get => winnerId; set => winnerId = value; }
-        public byte[] Blob { get => blob; set => blob = value; }
+        public string Img { get => img; set => img = value; }
+        public int CorrectGuess { get => correctGuess; set => correctGuess = value; }
 
         public override string ToString()
         {

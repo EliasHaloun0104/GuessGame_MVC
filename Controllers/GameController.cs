@@ -35,24 +35,50 @@ namespace GuessGame.Controllers
             var result = games.GetGame(id);
             return result == null ? "{The requested item doesn't exist in database}" : result.ToString();
         }
-       
 
-        // POST: api/Games
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+
 
 
         // PUT: api/Games/5
-        [HttpPut("{id}")]
-        public void Put(int id, IFormCollection value)
+        [HttpPost]
+        public int Put(IFormCollection value)
         {
             var userid = value["userid"];
             var text = value["drawText"];
             var actGame = new GameDB();
-            actGame.Add(userid, text);
+            var gameId = actGame.Add(userid, text);
+            return gameId;
+
         }
+
+
+        [HttpPut]
+        public string UpdateGame(IFormCollection value)
+        {
+            var id = value["gameid"];
+            var img = value["img"];
+            var game = new GameDB();
+            var result = game.Update(id, img);
+            return result;
+        }
+
+
+        [HttpPut("{id}/{guess}")]
+        public string UpdateCorrectGuess(string id, string guess)
+        {
+            var game = new GameDB();
+            var result = game.UpdateCorrectGuess(id, guess);
+            return result;
+        }
+
+
+
+
+
+
+
+
+
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

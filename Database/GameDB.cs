@@ -9,7 +9,7 @@ namespace GuessGame.Database
 {
     public class GameDB
     {
-        public bool Add(string userid, string text)
+        public int Add(string userid, string text)
         {
             var db = new DB_Connection();
 
@@ -18,7 +18,7 @@ namespace GuessGame.Database
                 db.OpenConnection();
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(null, db.Connection);
-                cmd.CommandText = "INSERT INTO activegame (userid, drawTexr)" + "VALUES(@uuserid, @drawText)";
+                cmd.CommandText = "INSERT INTO games (userid, drawText)" + "VALUES(@userid, @drawText)";
 
                 var userIdParam = new MySqlParameter("@userid", MySqlDbType.Int16, 45);
                 userIdParam.Value = userid;
@@ -33,17 +33,105 @@ namespace GuessGame.Database
                 // Call Prepare after setting the Commandtext and Parameters.
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
+                int gameId = (int)cmd.LastInsertedId;
 
                 //close connection
                 db.CloseConnection();
-                return true;
+                return gameId;
 
             }
             catch (MySqlException)
             {
-                return false;
+                return -1;
             }
 
+        }
+
+
+
+        public string Update(string id, string img)
+        {
+            var db = new DB_Connection();
+            //open connection
+
+            try
+            {
+                db.OpenConnection();
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(null, db.Connection);
+
+                cmd.CommandText = "UPDATE games SET active= 0, img= @img WHERE gameid = @id";
+
+                
+                var imgParam = new MySqlParameter("@img", MySqlDbType.LongText, img.Length);
+                imgParam.Value = img;
+                               
+                var idParam = new MySqlParameter("@id", MySqlDbType.Int32, 11);
+                idParam.Value = id;
+
+                cmd.Parameters.Add(imgParam);
+                cmd.Parameters.Add(idParam);
+                
+                
+
+                // Call Prepare after setting the Commandtext and Parameters.
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                db.CloseConnection();
+                return "true";
+
+            }
+            catch (MySqlException ex)
+            {
+                return ex.ToString();
+            }
+        }
+        
+        
+        
+        
+        public string UpdateCorrectGuess(string id, string guess)
+        {
+            var game = GetGame(int.Parse(id));
+            if(game.DrawText == guess)
+            {
+                var db = new DB_Connection();
+                //open connection
+
+                try
+                {
+                    db.OpenConnection();
+                    //create command and assign the query and connection from the constructor
+                    MySqlCommand cmd = new MySqlCommand(null, db.Connection);
+
+                    cmd.CommandText = "UPDATE games SET correctGuess= correctGuess + 1 WHERE gameid = @id";
+
+
+                    var idParam = new MySqlParameter("@id", MySqlDbType.Int32, 11);
+                    idParam.Value = id;
+
+                    cmd.Parameters.Add(idParam);
+
+
+
+                    // Call Prepare after setting the Commandtext and Parameters.
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+                    //close connection
+                    db.CloseConnection();
+                    return "true";
+
+                }
+                catch (MySqlException ex)
+                {
+                    return ex.ToString();
+                }
+            }
+            return "";
+            
         }
 
         public List<GameModel> GetAll()

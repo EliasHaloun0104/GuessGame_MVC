@@ -24,13 +24,35 @@ clearButton.addEventListener('click', ev => {
     }
 })
 
-
 var saveButton = document.getElementById('save')
-saveButton.addEventListener('click', ev => {
-    dataURI = canvas.toDataURL()
-    console.log(dataURI)
-    clearCanvas()
+saveButton.addEventListener('click', ev => {    
+    var dataURI = canvas.toDataURL();
+    console.log(dataURI);
+    var gameid = localStorage.getItem("gameid");
+    
+   
+
+    var formData = new FormData();
+
+    formData.append("gameid", gameid);
+    formData.append("img", dataURI);
+
+    fetch(`${urlGames}`, {
+        method: 'PUT',
+        body: formData
+    })
+        .then(response => response.text())
+        .then(data => {
+            window.location.href = "/Home/MyPage";
+        })
+        .catch(error => console.error('Unable to get Account.', error));
+
+
+
+    clearCanvas();
     connection.send('ClearCanvas')
+
+   
 
 })
 
@@ -114,6 +136,18 @@ sendButton.addEventListener('click', ev => {
         console.log(clientGuess.value);
         clientGuess.disabled = true;
         sendButton.disabled = true;
+        var gameid = localStorage.getItem("gameid");
+
+        var urdds = urlGames + gameid + "/" + clientGuess.value;
+        alert(urdds);
+
+
+        fetch(`${urlGames}` + gameid + "/" + clientGuess.value, {
+            method: 'PUT'            
+        })
+            .then(response => response.text())            
+            .catch(error => console.error('Unable to get Account.', error));
+
     }
 
 

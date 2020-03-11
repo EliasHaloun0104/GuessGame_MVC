@@ -4,6 +4,7 @@
 
 // Write your JavaScript code.
 const url = "https://localhost:44359/api/Users/";
+const urlGames = "https://localhost:44359/api/Games/";
 
 
 function choosenAvatar(id) {
@@ -73,8 +74,6 @@ function edit() {
 }
 
 
-
-
 function signIn() {
 	const formData = new FormData();
 
@@ -112,10 +111,27 @@ function CreateGame() {
 		window.alert("Please Enter A Paint Name!");
 		
 	} else {
-		window.location.href = "/Home/TheGame";
+		var formData = new FormData();
 		var user = JSON.parse(localStorage.getItem('user'));
-		alert(user.UserId, paintName);
-		localStorage.setItem("createGame")
+		var userId = user.UserId;
+
+
+		formData.append("userid", userId);
+		formData.append("drawText", paintName);
+
+		fetch(`${urlGames}`, {
+			method: 'POST',
+			body: formData
+		})
+			.then(response => response.text())
+			.then(data => {
+				localStorage.setItem("gameid", data);
+				window.location.href = "/Home/TheGame";
+			})
+			.catch(error => console.error('Unable to get Account.', error));
+		
+		
+		
 
 	}
 }
