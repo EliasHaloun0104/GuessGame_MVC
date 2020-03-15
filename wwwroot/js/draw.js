@@ -2,7 +2,7 @@
 var unsentStrokes = [];
 var uri;
 var gameid = document.getElementById("gameId").innerText;
-alert(gameid);
+//alert(gameid);
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl('/TheGame')
@@ -138,8 +138,8 @@ sendButton.addEventListener('click', ev => {
         clientGuess.disabled = true;
         sendButton.disabled = true;
 
-        var urdds = urlGames + gameid + "/" + clientGuess.value;
-        alert(urdds);
+        //var urdds = urlGames + gameid + "/" + clientGuess.value;
+        //alert(urdds);
 
 
         fetch(`${urlGames}` + gameid + "/" + clientGuess.value, {
