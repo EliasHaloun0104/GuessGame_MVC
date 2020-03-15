@@ -1,5 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Admin";
+﻿@model AdminViewModel
+@{
+	ViewData["Title"] = "Admin";
 }
 
 @Html.Raw(PrintModel.Title("Admin Page", 1))
+@Html.Raw(PrintModel.Title(Model.Users.Count + " ", 1))
+
+
+@foreach (var item in Model.Users)
+{
+	@Html.Raw(PrintModel.UserForm(item))
+	<br />
+}
+
+
+@Html.Raw(PrintModel.Title(Model.Games.Count + " ", 1))
+
+
+
+

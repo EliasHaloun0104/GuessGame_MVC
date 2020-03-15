@@ -70,5 +70,21 @@ namespace GuessGame.Models
 
             return avatar;
         }
+
+
+        public static string UserForm (UserModel userModel)
+        {
+            var formID = $"form{userModel.UserId}";
+            var form = $"<div class=\"container\"><form id=\"{formID}\" class=\"tableRow\" action=\"\" method=\"post\">";
+            form += $"<input class=\"tableCell_input\" form=\"{formID}\" name=\"userid\" value=\"{userModel.UserId}\" readonly>";
+            form += $"<input class=\"tableCell_input\" form=\"{formID}\" name=\"username\" value=\"{userModel.Username}\" >";
+            form += $"<input class=\"tableCell_input\" form=\"{formID}\" name=\"email\" value=\"{userModel.Email}\" >";
+            form += $"<input class=\"tableCell_input\" form=\"{formID}\" name=\"password\" value=\"{userModel.Password}\" >";
+            
+            form += $"<input class=\"tableCell_input\" form=\"{formID}\" name=\"role\" value=\"{userModel.Role}\" >";
+            form += $"<img src=\"{userModel.Avatar}\" width=64 height=64 class=\"tableCell_input\" name=\"avatar\">";
+            form += "</div>";
+            return form;
+        }
     }
 }

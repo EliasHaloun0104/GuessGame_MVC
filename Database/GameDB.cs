@@ -176,6 +176,17 @@ namespace GuessGame.Database
             return null;
         }
 
+        public int GetGameId()
+        {
+            var allGames = GetAll();
+            foreach (var item in allGames)
+            {
+                if (item.Active) 
+                    return item.Gameid;
+            }
+            return 0;
+        }
+
 
         public Data indexInfo()
         {

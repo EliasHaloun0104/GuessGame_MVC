@@ -125,7 +125,6 @@ function CreateGame() {
 		})
 			.then(response => response.text())
 			.then(data => {
-				localStorage.setItem("gameid", data);
 				window.location.href = "/Home/TheGame";
 			})
 			.catch(error => console.error('Unable to get Account.', error));

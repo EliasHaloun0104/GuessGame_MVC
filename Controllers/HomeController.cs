@@ -30,7 +30,11 @@ namespace GuessGame.Controllers
 
         public IActionResult Admin()
         {
-            return View();
+            var viewModel = new AdminViewModel();
+            
+            viewModel.Users = new UsersDB().GetAll();
+            viewModel.Games = new GameDB().GetAll();
+            return View(viewModel);
         }
 
         
@@ -55,7 +59,7 @@ namespace GuessGame.Controllers
         
         public IActionResult TheGame()
         {
-            return View();
+            return View(new GameDB().GetGameId());
         }
         
        

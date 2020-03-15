@@ -1,6 +1,8 @@
 
 var unsentStrokes = [];
 var uri;
+var gameid = document.getElementById("gameId").innerText;
+alert(gameid);
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl('/TheGame')
@@ -28,7 +30,6 @@ var saveButton = document.getElementById('save')
 saveButton.addEventListener('click', ev => {    
     var dataURI = canvas.toDataURL();
     console.log(dataURI);
-    var gameid = localStorage.getItem("gameid");
     
    
 
@@ -136,7 +137,6 @@ sendButton.addEventListener('click', ev => {
         console.log(clientGuess.value);
         clientGuess.disabled = true;
         sendButton.disabled = true;
-        var gameid = localStorage.getItem("gameid");
 
         var urdds = urlGames + gameid + "/" + clientGuess.value;
         alert(urdds);
