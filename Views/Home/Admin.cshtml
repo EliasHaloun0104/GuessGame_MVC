@@ -4,7 +4,7 @@
 }
 
 @Html.Raw(PrintModel.Title("Admin Page", 1))
-@Html.Raw(PrintModel.Title(Model.Users.Count + " ", 1))
+@Html.Raw(PrintModel.Title("Number of users" + Model.Users.Count, 1))
 
 
 @foreach (var item in Model.Users)
@@ -14,8 +14,12 @@
 }
 
 
-@Html.Raw(PrintModel.Title(Model.Games.Count + " ", 1))
-
+@Html.Raw(PrintModel.Title("Number of games" + Model.Games.Count + " ", 1))
+@foreach (var item in Model.Games)
+{
+	@Html.Raw(PrintModel.GameForm(item))
+	<br />
+}
 
 
 

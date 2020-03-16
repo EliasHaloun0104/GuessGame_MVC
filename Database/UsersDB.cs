@@ -169,7 +169,48 @@ namespace GuessGame.Database
             }
             return null;
         }
+
+
+        public string Delete(int id)
+        {
+            var db = new DB_Connection();
+            //open connection
+
+            try
+            {
+                db.OpenConnection();
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(null, db.Connection);
+
+                cmd.CommandText = "DELETE FROM users WHERE userId = @id";
+
+
+                var idParam = new MySqlParameter("@id", MySqlDbType.Int32, 11)
+                {
+                    Value = id
+                };
+                cmd.Parameters.Add(idParam);
+
+
+
+                // Call Prepare after setting the Commandtext and Parameters.
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                db.CloseConnection();
+                return "true";
+
+            }
+            catch (MySqlException ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+
+
     }
 
-    
+
 }

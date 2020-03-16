@@ -135,6 +135,31 @@ function CreateGame() {
 	}
 }
 
+
+function DeleteGame(id) {
+	var delUrl = urlGames + "Delete/" + id;
+	fetch(delUrl, {
+		method: 'delete'
+	})
+		.then(response => response.text())
+		.then(data => {
+			window.location.href = "/Home/Admin";
+		})
+		.catch(error => console.error('Unable to get Account.', error));
+}
+
+function DeleteUser(id) {
+	var delUrl = url + "Delete/" + id;
+	fetch(delUrl, {
+		method: 'delete'
+	})
+		.then(response => response.text())
+		.then(data => {
+			window.location.href = "/Home/Admin";
+		})
+		.catch(error => console.error('Unable to get Account.', error));
+}
+
 function ActiveGame() {
 	
 	window.location.href = "/Home/TheGame";

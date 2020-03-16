@@ -106,14 +106,16 @@ namespace GuessGame.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Delete/{id}")]
+        public string Delete(int id)
         {
+            Debug.WriteLine("Deleted user: " + id);
+            return new UsersDB().Delete(id);
         }
 
 
-        
-        
+
+
     }
 }
 
